@@ -35,8 +35,6 @@ def interpret_prompt(prompt: str):
 
     response = llm(messages)
     try:
-        # Extrai JSON bruto da resposta (pode ajustar com regex, se necessário)
-        # Cuidado: use json.loads em produção
         steps = parse_json_markdown(response.content.strip())
         return steps
     except Exception as e:
