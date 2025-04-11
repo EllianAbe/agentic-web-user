@@ -1,0 +1,15 @@
+from fastapi import FastAPI, Request
+from agent import interpret_prompt
+from executor import execute_steps
+
+app = FastAPI()
+
+@app.post("/execute")
+async def execute(request: Request):
+    body = await request.json()
+    prompt = body["prompt"]
+
+    steps = interpret_prompt(prompt)
+    result = await execute_steps(steps)
+
+    return {"status": "ok", "result": result}
